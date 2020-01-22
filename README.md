@@ -1,6 +1,5 @@
-# spring-angular-jpa-starter-template
-You just want to start developing your usual Angular website (*src/main/ui*)
-with a Spring JPA REST backend? Here is a template for your convenience!
+# Finalministry-Territories
+Managing and printing territories overview of a congregation
 
 ## Build
     mvn clean install
@@ -8,5 +7,5 @@ with a Spring JPA REST backend? Here is a template for your convenience!
 ## Run
     mvn spring-boot:run
 
-## Downloads
+## Downloads required
 * [OpenJDK 11](https://jdk.java.net/java-se-ri/11)
