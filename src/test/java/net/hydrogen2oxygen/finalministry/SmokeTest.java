@@ -2,7 +2,9 @@ package net.hydrogen2oxygen.finalministry;
 
 import net.hydrogen2oxygen.finalministry.jpa.Minister;
 import net.hydrogen2oxygen.finalministry.jpa.Territory;
+import net.hydrogen2oxygen.finalministry.jpa.TerritoryEntry;
 import net.hydrogen2oxygen.finalministry.jpa.repositories.MinisterRepository;
+import net.hydrogen2oxygen.finalministry.jpa.repositories.TerritoryEntryRepository;
 import net.hydrogen2oxygen.finalministry.jpa.repositories.TerritoryRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,6 +29,9 @@ public class SmokeTest {
     @Autowired
     private TerritoryRepository territoryRepository;
 
+    @Autowired
+    private TerritoryEntryRepository territoryEntryRepository;
+
     @Before
     public void setup() {
         // The most important precondition is that the injected repository is not null
@@ -38,7 +43,34 @@ public class SmokeTest {
      * Test create, read, update, delete
      */
     @Test
-    public void testMinisterRepositoryCRUD() {
+    public void test() {
+        Minister minister = createMinister();
+        Territory territory = createTerritory();
+
+        TerritoryEntry territoryEntry = TerritoryEntry.generateForCongregationPool(territory);
+        territoryEntry = territoryEntryRepository.save(territoryEntry);
+
+        Assert.assertNotNull(territoryEntry.getId());
+        Assert.assertTrue(territoryEntry.getCongregationPool());
+        Assert.assertTrue(!territoryEntry.getArchived());
+        Assert.assertEquals(territory.getId(), territoryEntry.getTerritoryID());
+        Assert.assertNull(territoryEntry.getMinisterID());
+
+        territoryEntry = TerritoryEntry.generateForMinister(territory, minister);
+        territoryEntry = territoryEntryRepository.save(territoryEntry);
+
+        Assert.assertNotNull(territoryEntry.getId());
+        Assert.assertTrue(!territoryEntry.getCongregationPool());
+        Assert.assertTrue(!territoryEntry.getArchived());
+        Assert.assertEquals(territory.getId(), territoryEntry.getTerritoryID());
+        Assert.assertEquals(minister.getId(), territoryEntry.getMinisterID());
+
+
+        deleteMinister(minister);
+        deleteTerritory(territory);
+    }
+
+    private Minister createMinister() {
         // READ ALL
         List<Minister> ministers = ministerRepository.findAll();
         Assert.assertNotNull(ministers);
@@ -58,7 +90,7 @@ public class SmokeTest {
         Assert.assertEquals(1, ministers.size());
         Assert.assertEquals(persistedMinister.getId(), ministers.get(0).getId());
 
-        // FIND BY TITLE
+        // FIND BY NAME
         Minister result = ministerRepository.findByName(minister.getName());
         Assert.assertNotNull(result);
         Assert.assertEquals(persistedMinister.getId(), result.getId());
@@ -72,8 +104,11 @@ public class SmokeTest {
         result = ministerRepository.findByName("John");
         Assert.assertNotNull(result.getName());
         Assert.assertEquals(persistedMinister.getId(), result.getId());
+        return result;
+    }
 
-        // DELETE
+    private void deleteMinister(Minister result) {
+        List<Minister> ministers;// DELETE
         ministerRepository.delete(result);
 
         // CHECK IF EMPTY
@@ -82,8 +117,7 @@ public class SmokeTest {
         Assert.assertEquals(0, ministers.size());
     }
 
-    @Test
-    public void testTerritoryRepositoryCRUD() {
+    private Territory createTerritory() {
         // READ ALL
         List<Territory> territories = territoryRepository.findAll();
         Assert.assertNotNull(territories);
@@ -118,8 +152,11 @@ public class SmokeTest {
         result = territoryRepository.findByName("Nürtingen Süd");
         Assert.assertNotNull(result.getName());
         Assert.assertEquals(persisted.getId(), result.getId());
+        return result;
+    }
 
-        // DELETE
+    private void deleteTerritory(Territory result) {
+        List<Territory> territories;// DELETE
         territoryRepository.delete(result);
 
         // CHECK IF EMPTY
