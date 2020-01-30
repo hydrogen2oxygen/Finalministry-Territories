@@ -30,8 +30,8 @@ jobs:
     - name: Make Directory and Copy Artifact
       run: |
         mkdir -p release;
-        cp target/finalministry-territories-1.0.jar release/;
+        cp target/finalministry-territories*.jar release/;
     - uses: actions/upload-artifact@master
       with:
-        name: Finalministry-Territories-1.0
+        name: Finalministry-Territories
         path: release
