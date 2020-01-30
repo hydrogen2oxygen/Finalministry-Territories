@@ -1,11 +1,17 @@
-name: Java CI
+name: BUILD RELEASE
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -13,8 +19,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Angular Github Actions
-      uses: mayur-rawte/github-angular-actions@latest
+    - name: Node $
+        uses: actions/setup-node@v1
+        with:
+          node-version: $
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Download artifact
