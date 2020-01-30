@@ -32,6 +32,6 @@ jobs:
         mkdir -p release;
         cp target/finalministry-territories-1.0.jar release/;
     - uses: actions/upload-artifact@master
-        with:
-          name: Finalministry-Territories-1.0
-          path: release
+      with:
+        name: Finalministry-Territories-1.0
+        path: release
