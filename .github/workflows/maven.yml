@@ -1,4 +1,4 @@
-name: Java CI
+name: BUILD RELEASE
 
 on:
   push:
@@ -19,10 +19,24 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Node $
-        uses: actions/setup-node@v1
+    - name: Cache node modules
+        uses: actions/cache@v1
         with:
-          node-version: $
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+          - name: Node ${{ matrix.node-version }}
+            uses: actions/setup-node@v1
+            with:
+              node-version: ${{ matrix.node-version }}
+
+          - name: npm ci and npm run build
+            run: |
+              cd src/main/ui
+              npm ci
+              npm run build:ci
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Download artifact
