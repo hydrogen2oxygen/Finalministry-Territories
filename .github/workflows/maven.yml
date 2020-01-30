@@ -20,10 +20,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12.8
-    - name: Install dependencies
-      run: npm install
-    - name: Build
-      run: npm run build -- --prod
+    - name: Install and Build NPM
+      run: |
+        cd src/main/ui
+        npm install
+        npm run build -- --prod
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Download artifact
