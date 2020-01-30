@@ -27,8 +27,11 @@ jobs:
         npm run build -- --prod
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Download artifact
-      uses: actions/download-artifact@v1.0.0
-      with:
-        # Artifact name
-        name: finalministry-territories-1.0.jar
+    - name: Make Directory and Copy Artifact
+      run: |
+        mkdir -p release;
+        cp target/finalministry-territories-1.0.jar release/;
+    - uses: actions/upload-artifact@master
+        with:
+          name: Finalministry-Territories-1.0
+          path: release
