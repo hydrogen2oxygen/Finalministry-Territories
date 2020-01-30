@@ -47,23 +47,56 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.7.6</version>
+				<configuration>
+
+					<!--<nodeVersion>v10.14.2</nodeVersion> -->
+					<nodeVersion>v12.4.0</nodeVersion>
+
+					<!--<npmVersion>6.5.0</npmVersion> -->
+					<yarnVersion>v1.19.1</yarnVersion>
+					<workingDirectory>${basedir}/src/main/ui</workingDirectory>
+					<installDirectory>target</installDirectory>
+
+					<environmentVariables>
+						<production>true</production>
+					</environmentVariables>
+
+					<!-- Optional: where to download node from. Defaults to https://nodejs.org/dist/ -->
+					<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
+
+					<!-- Optional: where to download npm from. Defaults to https://registry.npmjs.org/npm/-/ -->
+					<npmDownloadRoot>https://registry.npmjs.org/npm/</npmDownloadRoot>
+				</configuration>
 				<executions>
 					<execution>
-						<id>Build AngularDistillation</id>
+						<id>install nodejs and yarn</id>
 						<goals>
-							<goal>exec</goal>
+							<goal>install-node-and-yarn</goal>
 						</goals>
-						<phase>validate</phase>
+					</execution>
+					<execution>
+						<id>yarn install</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
 						<configuration>
-							<executable>ng</executable>
-							<arguments>
-								<argument>build</argument>
-								<argument>--prod=true</argument>
-							</arguments>
-							<workingDirectory>${basedir}/src/main/ui</workingDirectory>
+							<arguments>install</arguments>
+							<arguments>--production</arguments>
+							<arguments>--no-lockfile</arguments>
+							<arguments>--no-bin-links</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>yarn run build</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<configuration>
+							<arguments>build --prod</arguments>
 						</configuration>
 					</execution>
 				</executions>
