@@ -13,6 +13,7 @@ public class Territory {
     @Column(unique=true)
     private String number;
     private String name;
+    private String urlForGoogleMap;
 
     public UUID getId() {
         return id;
@@ -38,12 +39,21 @@ public class Territory {
         this.name = name;
     }
 
+    public String getUrlForGoogleMap() {
+        return urlForGoogleMap;
+    }
+
+    public void setUrlForGoogleMap(String urlForGoogleMap) {
+        this.urlForGoogleMap = urlForGoogleMap;
+    }
+
     @Override
     public String toString() {
         return "Territory{" +
                 "id=" + id +
                 ", number='" + number + '\'' +
                 ", name='" + name + '\'' +
+                ", urlForGoogleMap='" + urlForGoogleMap + '\'' +
                 '}';
     }
 }
