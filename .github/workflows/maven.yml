@@ -13,6 +13,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
+    - name: Angular Github Actions
+      uses: mayur-rawte/github-angular-actions@latest
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Download artifact
