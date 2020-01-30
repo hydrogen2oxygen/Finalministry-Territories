@@ -13,7 +13,7 @@ Run it directly with maven ...
 
 ... or with java ...
 
-    java -jar finalministry-territories.jar
+    java -jar finalministry-territories-1.0.jar
 
 ## Downloads required
 * [OpenJDK 11](https://jdk.java.net/java-se-ri/11)
