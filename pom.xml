@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>net.hydrogen2oxygen</groupId>
 	<artifactId>finalministry-territories</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>Finalministry Territories</name>
 	<description>Territories Management System</description>
 
