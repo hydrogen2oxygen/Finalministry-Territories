@@ -14,6 +14,7 @@ public class Territory {
     private String number;
     private String name;
     private String urlForGoogleMap;
+    private String urlForJpegMap;
 
     public UUID getId() {
         return id;
@@ -47,6 +48,14 @@ public class Territory {
         this.urlForGoogleMap = urlForGoogleMap;
     }
 
+    public String getUrlForJpegMap() {
+        return urlForJpegMap;
+    }
+
+    public void setUrlForJpegMap(String urlForJpegMap) {
+        this.urlForJpegMap = urlForJpegMap;
+    }
+
     @Override
     public String toString() {
         return "Territory{" +
@@ -54,6 +63,7 @@ public class Territory {
                 ", number='" + number + '\'' +
                 ", name='" + name + '\'' +
                 ", urlForGoogleMap='" + urlForGoogleMap + '\'' +
+                ", urlForJpegMap='" + urlForJpegMap + '\'' +
                 '}';
     }
 }
