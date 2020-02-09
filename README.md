@@ -4,7 +4,7 @@ Managing and printing territories overview of a congregation.
 See the wiki for the [concept](https://github.com/hydrogen2oxygen/Finalministry-Territories/wiki/Concept-Flow).
 
 ## Build
-    mvn clean install
+    mvn clean install -P"Angular Build"
 
 ## Run
 Run it directly with maven ...
