@@ -1,1 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/scss/bootstrap"
+// regular style toast
+@import '~ngx-toastr/toastr'
+
+// bootstrap style toast
+// or import a bootstrap 4 alert styled design (SASS ONLY)
+// should be after your bootstrap imports, it uses bs4 variables, mixins, functions
+@import '~ngx-toastr/toastr-bs4-alert'
+
+body
+  font-family: Menlo,Monaco,Consolas,Courier New,monospace
+  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5)
+
+a
+  color: #fff
+
+input
+  width: 300px
+  background: linear-gradient(to right, #000, #000) 5px calc(100% - 5px)/calc(100% - 10px) 2px no-repeat
+  /* <5px calc(100% - 5px)> : position of the gradient [5px from left and 5px from bottom  */
+  /* <calc(100% - 10px) 2px> : size of the gradient [width:100%-10px height:2px] */
+  background-color: #fcfcfc
+  border: 1px solid
+  padding: 10px
+
+.toast-success
+  background-color: #0f9400 !important
+  color: white
+  border: none
+
+.toast-error
+  background-color: #cd0e00 !important
+  color: white
+  border: none
