@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark2">
-  <a class="navbar-brand" href="#">Finalministry</a>
+  <a routerLink="" class="navbar-brand" href="#">Finalministry</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse"
           data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
           aria-expanded="false" aria-label="Toggle navigation" (click)="isMenuCollapsed = !isMenuCollapsed">
@@ -8,25 +8,24 @@
 
   <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" aria-disabled="true">Congregations</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <div ngbDropdown class="d-inline-block">
-          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button ngbDropdownItem>Action - 1</button>
-            <button ngbDropdownItem>Another Action</button>
-            <button ngbDropdownItem>Something else is here</button>
-          </div>
-        </div>
+        <a class="nav-link disabled" href="#" aria-disabled="true">Users</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        <a routerLink="territories" class="nav-link" href="#">Territories</a>
       </li>
+      <li class="nav-item">
+        <a routerLink="map" class="nav-link" href="#">Maps</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" aria-disabled="true">Tools</a>
+      </li>
+      <div class="nav-item">
+        <a routerLink="settings" class="nav-link" href="#">Settings</a>
+      </div>
     </ul>
     <div class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" (change)="search()">
