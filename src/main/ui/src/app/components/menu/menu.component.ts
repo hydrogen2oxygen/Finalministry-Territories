@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
+  isMenuCollapsed:boolean=true;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  search() {
+
+  }
 }
