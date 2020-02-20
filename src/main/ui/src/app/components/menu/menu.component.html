@@ -26,6 +26,13 @@
       <div class="nav-item">
         <a routerLink="settings" class="nav-link" href="#">Settings</a>
       </div>
+      <div class="nav-item">
+        <a routerLinkActive="active" routerLink="/login" class="nav-link" href="#">Login</a>
+      </div>
+      <!-- TODO dynamically show / hide links for login/logout -->
+      <div class="nav-item">
+        <a (click)="logout()" class="nav-link" href="#">Logout</a>
+      </div>
     </ul>
     <div class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" (change)="search()">
