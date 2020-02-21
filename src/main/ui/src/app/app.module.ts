@@ -10,6 +10,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MapComponent } from './components/map/map.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { TerritoriesComponent } from './components/territories/territories.component';
+import { LoginComponent } from './components/session/login/login.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,12 +20,14 @@ import { TerritoriesComponent } from './components/territories/territories.compo
     DashboardComponent,
     MapComponent,
     SettingsComponent,
-    TerritoriesComponent
+    TerritoriesComponent,
+    LoginComponent
   ],
   imports: [
     NgbModule,
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     ToastrModule.forRoot()
   ],
   providers: [],
