@@ -33,6 +33,20 @@
             "scripts": []
           },
           "configurations": {
+            "de": {
+              "aot": false,
+              "i18nFile": "src/locale/messages.de.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "de",
+              "i18nMissingTranslation": "error"
+            },
+            "it": {
+              "aot": false,
+              "i18nFile": "src/locale/messages.it.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "it",
+              "i18nMissingTranslation": "error"
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -67,6 +81,12 @@
           "configurations": {
             "production": {
               "browserTarget": "ui:build:production"
+            },
+            "de": {
+              "browserTarget": "ui:build:de"
+            },
+            "it": {
+              "browserTarget": "ui:build:it"
             }
           }
         },
@@ -120,5 +140,5 @@
         }
       }
     }},
-  "defaultProject": "ui"
+  "defaultProject": "ui",
 }

@@ -9,27 +9,27 @@
   <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link disabled" href="#" aria-disabled="true">Congregations</a>
+        <a i18n="@@Congregations" class="nav-link disabled" href="#" aria-disabled="true">Congregations</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#" aria-disabled="true">Users</a>
+        <a i18n="@@Users" class="nav-link disabled" href="#" aria-disabled="true">Users</a>
       </li>
       <li class="nav-item">
-        <a routerLink="territories" class="nav-link" href="#">Territories</a>
+        <a i18n="@@Territories" routerLink="territories" class="nav-link" href="#">Territories</a>
       </li>
       <li class="nav-item">
-        <a routerLink="map" class="nav-link" href="#">Maps</a>
+        <a i18n="@@Maps" routerLink="map" class="nav-link" href="#">Maps</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#" aria-disabled="true">Tools</a>
+        <a i18n="@@Tools" class="nav-link disabled" href="#" aria-disabled="true">Tools</a>
       </li>
       <div class="nav-item">
-        <a routerLink="settings" class="nav-link" href="#">Settings</a>
+        <a i18n="@@Settings" routerLink="settings" class="nav-link" href="#">Settings</a>
       </div>
     </ul>
     <div class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" (change)="search()">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="search()">Search</button>
+      <button i18n="@@Search" class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="search()">Search</button>
     </div>
   </div>
 </nav>
