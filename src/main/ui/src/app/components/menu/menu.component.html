@@ -8,33 +8,35 @@
 
   <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+      <li [hidden]="!authenticated()" class="nav-item">
         <a class="nav-link disabled" href="#" aria-disabled="true">Congregations</a>
       </li>
-      <li class="nav-item">
+      <li [hidden]="!authenticated()" class="nav-item">
         <a class="nav-link disabled" href="#" aria-disabled="true">Users</a>
       </li>
-      <li class="nav-item">
+      <li [hidden]="!authenticated()" class="nav-item">
         <a routerLink="territories" class="nav-link" href="#">Territories</a>
       </li>
-      <li class="nav-item">
+      <li [hidden]="!authenticated()" class="nav-item">
         <a routerLink="map" class="nav-link" href="#">Maps</a>
       </li>
-      <li class="nav-item">
+      <li [hidden]="!authenticated()" class="nav-item">
         <a class="nav-link disabled" href="#" aria-disabled="true">Tools</a>
       </li>
-      <div class="nav-item">
+      <div [hidden]="!authenticated()" class="nav-item">
         <a routerLink="settings" class="nav-link" href="#">Settings</a>
       </div>
-      <div class="nav-item">
+      <div [hidden]="authenticated()" class="nav-item">
         <a routerLinkActive="active" routerLink="/login" class="nav-link" href="#">Login</a>
       </div>
-      <!-- TODO dynamically show / hide links for login/logout -->
-      <div class="nav-item">
+      <div *ngIf="authenticated()" class="nav-item">
+        <a class="nav-link"><i class="fas fa-user"></i>{{getUser().name}}</a>
+      </div>
+      <div *ngIf="authenticated()" class="nav-item">
         <a (click)="logout()" class="nav-link" href="#">Logout</a>
       </div>
     </ul>
-    <div class="form-inline my-2 my-lg-0">
+    <div [hidden]="!authenticated()" class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" (change)="search()">
       <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="search()">Search</button>
     </div>

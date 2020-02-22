@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {SessionService} from "../../services/session.service";
-import {take, finalize} from 'rxjs/operators';
 import {environment} from "../../../environments/environment";
 import {BaseUrlUtility} from "../../utilities/BaseUrlUtility";
 
@@ -16,8 +15,7 @@ export class MenuComponent implements OnInit {
   isMenuCollapsed: boolean = true;
   serverUrl:string = `${BaseUrlUtility.getBaseUrl()}:${environment.serverPort}`;
 
-  constructor(private app: SessionService, private http: HttpClient, private router: Router) {
-    this.app.authenticate(undefined, undefined);
+  constructor(private sessionService: SessionService, private http: HttpClient, private router: Router) {
   }
 
   ngOnInit() {
@@ -28,9 +26,20 @@ export class MenuComponent implements OnInit {
   }
 
   logout() {
+
+    this.sessionService.authenticated = false;
+
     this.http.post(this.serverUrl + '/logout', {}).subscribe(() => {
-      this.app.authenticated = false;
+      console.log("Logout successful!");
       this.router.navigateByUrl('/login');
     });
+  }
+
+  getUser() {
+    return this.sessionService.user;
+  }
+
+  authenticated() {
+    return this.sessionService.authenticated;
   }
 }

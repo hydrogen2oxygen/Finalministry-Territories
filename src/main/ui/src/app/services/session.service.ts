@@ -1,28 +1,35 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {BaseUrlUtility} from "../utilities/BaseUrlUtility";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
 
+  serverUrl:string = `${BaseUrlUtility.getBaseUrl()}:${environment.serverPort}`;
   authenticated = false;
+  user:any = null;
 
   constructor(private http: HttpClient) {
   }
 
-  authenticate(credentials, callback) {
+  authenticate(username, password, callback) {
 
-    const headers = new HttpHeaders(credentials ? {
-      authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
-    } : {});
+    const headers = new HttpHeaders( {
+      authorization: 'Basic ' + btoa(username + ':' + password)
+    });
 
-    this.http.get('user', {headers: headers}).subscribe(response => {
+    this.http.get(this.serverUrl + '/user', {headers: headers}).subscribe(user => {
 
-      if (response['name']) {
+      if (user['name']) {
         this.authenticated = true;
+        this.user = user;
+        console.log(user)
       } else {
         this.authenticated = false;
+        this.user = null;
       }
 
       return callback && callback();
