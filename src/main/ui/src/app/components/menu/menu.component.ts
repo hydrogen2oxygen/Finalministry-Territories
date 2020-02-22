@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {SessionService} from "../../services/session.service";
 import {environment} from "../../../environments/environment";
 import {BaseUrlUtility} from "../../utilities/BaseUrlUtility";
+import { faUser,faSignOutAlt,faCog,faSignInAlt,faTools,faMapMarkedAlt,faUsers,faBuilding,faBook } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-menu',
@@ -11,6 +12,17 @@ import {BaseUrlUtility} from "../../utilities/BaseUrlUtility";
   styleUrls: ['./menu.component.sass']
 })
 export class MenuComponent implements OnInit {
+
+  // Icons ... but why do I need to declare them all ... is there not a better way??? Tell me on Github!
+  faUser = faUser;
+  faUsers = faUsers;
+  faSignInAlt = faSignInAlt;
+  faSignOutAlt = faSignOutAlt;
+  faTools = faTools;
+  faMapMarkerAlt = faMapMarkedAlt;
+  faCog = faCog;
+  faBuilding = faBuilding;
+  faBook = faBook;
 
   isMenuCollapsed: boolean = true;
   serverUrl:string = `${BaseUrlUtility.getBaseUrl()}:${environment.serverPort}`;

@@ -14,6 +14,7 @@ import { LoginComponent } from './components/session/login/login.component';
 import {HTTP_INTERCEPTORS, HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {SessionService} from "./services/session.service";
 import {ReactiveFormsModule} from "@angular/forms";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -39,6 +40,7 @@ export class XhrInterceptor implements HttpInterceptor {
   imports: [
     NgbModule,
     BrowserModule,
+    FontAwesomeModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -47,4 +49,5 @@ export class XhrInterceptor implements HttpInterceptor {
   providers: [SessionService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
