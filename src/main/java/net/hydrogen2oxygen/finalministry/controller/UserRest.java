@@ -16,7 +16,7 @@ public class UserRest {
      * @param user
      * @return
      */
-    @RequestMapping("/user")
+    @RequestMapping("/authentication")
     public Principal user(Principal user) {
         return user;
     }

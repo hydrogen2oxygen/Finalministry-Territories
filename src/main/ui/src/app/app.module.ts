@@ -15,6 +15,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule, HttpHandler, HttpInterceptor, HttpR
 import {SessionService} from "./services/session.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -44,7 +45,8 @@ export class XhrInterceptor implements HttpInterceptor {
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [SessionService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
