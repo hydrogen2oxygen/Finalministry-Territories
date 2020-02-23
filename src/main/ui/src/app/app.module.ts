@@ -16,6 +16,8 @@ import {SessionService} from "./services/session.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { RegisterNewUserComponent } from './components/session/register-new-user/register-new-user.component';
+import { LoggedOutDashboardComponent } from './components/dashboard/logged-out-dashboard/logged-out-dashboard.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -36,7 +38,9 @@ export class XhrInterceptor implements HttpInterceptor {
     MapComponent,
     SettingsComponent,
     TerritoriesComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterNewUserComponent,
+    LoggedOutDashboardComponent
   ],
   imports: [
     NgbModule,
