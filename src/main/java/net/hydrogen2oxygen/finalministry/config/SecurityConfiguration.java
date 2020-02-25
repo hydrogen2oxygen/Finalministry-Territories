@@ -1,5 +1,6 @@
 package net.hydrogen2oxygen.finalministry.config;
 
+import net.hydrogen2oxygen.finalministry.security.NoPopupBasicAuthenticationEntryPoint;
 import net.hydrogen2oxygen.finalministry.services.FmUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,9 +32,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
+                .antMatchers("/index.html", "/", "/home", "/login","/*.js").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .permitAll().anyRequest()
-                .authenticated().and().httpBasic();
+                .authenticated()
+                .and().httpBasic().authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint());
     }
 
     @Bean
