@@ -8,6 +8,7 @@ import {LoginComponent} from "./components/session/login/login.component";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
+  {path: 'home', component: DashboardComponent},
   {path: 'territories', component: TerritoriesComponent},
   {path: 'map', component: MapComponent},
   {path: 'settings', component: SettingsComponent},
