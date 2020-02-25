@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BaseUrlUtility} from "../utilities/BaseUrlUtility";
-import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
 
-  serverUrl:string = `${BaseUrlUtility.getBaseUrl()}:${environment.serverPort}`;
+  serverUrl:string = `${BaseUrlUtility.getBaseUrl()}`;
   authenticated = false;
   user:any = null;
 
