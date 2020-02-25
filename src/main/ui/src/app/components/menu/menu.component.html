@@ -8,35 +8,37 @@
 
   <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a i18n="@@Congregations" class="nav-link disabled" href="#" aria-disabled="true">Congregations</a>
+      <li [hidden]="!authenticated()" class="nav-item">
+        <a class="nav-link disabled" href="#" aria-disabled="true"><fa-icon [icon]="faBuilding"></fa-icon> Congregations</a>
       </li>
-      <li class="nav-item">
-        <a i18n="@@Users" class="nav-link disabled" href="#" aria-disabled="true">Users</a>
+      <li [hidden]="!authenticated()" class="nav-item">
+        <a class="nav-link disabled" href="#" aria-disabled="true"><fa-icon [icon]="faUsers"></fa-icon> Users</a>
       </li>
-      <li class="nav-item">
-        <a i18n="@@Territories" routerLink="territories" class="nav-link" href="#">Territories</a>
+      <li [hidden]="!authenticated()" class="nav-item">
+        <a routerLink="territories" class="nav-link" href="#"><fa-icon [icon]="faBook"></fa-icon>Territories</a>
       </li>
-      <li class="nav-item">
-        <a i18n="@@Maps" routerLink="map" class="nav-link" href="#">Maps</a>
+      <li [hidden]="!authenticated()" class="nav-item">
+        <a routerLink="map" class="nav-link" href="#"><fa-icon [icon]="faMapMarkerAlt"></fa-icon> Maps</a>
       </li>
-      <li class="nav-item">
-        <a i18n="@@Tools" class="nav-link disabled" href="#" aria-disabled="true">Tools</a>
+      <li [hidden]="!authenticated()" class="nav-item">
+        <a class="nav-link disabled" href="#" aria-disabled="true"><fa-icon [icon]="faTools"></fa-icon> Tools</a>
       </li>
-      <div class="nav-item">
-        <a i18n="@@Settings" routerLink="settings" class="nav-link" href="#">Settings</a>
+      <div [hidden]="!authenticated()" class="nav-item">
+        <a routerLink="settings" class="nav-link" href="#"><fa-icon [icon]="faCog"></fa-icon> Settings</a>
       </div>
-      <div class="nav-item">
-        <a routerLinkActive="active" routerLink="/login" class="nav-link" href="#">Login</a>
+      <div [hidden]="authenticated()" class="nav-item">
+        <a routerLinkActive="active" routerLink="/login" class="nav-link" href="#"><fa-icon [icon]="faSignInAlt"></fa-icon> Login</a>
       </div>
-      <!-- TODO dynamically show / hide links for login/logout -->
-      <div class="nav-item">
-        <a (click)="logout()" class="nav-link" href="#">Logout</a>
+      <div *ngIf="authenticated()" class="nav-item">
+        <a class="nav-link"><fa-icon [icon]="faUser"></fa-icon> {{getUser().name}}</a>
+      </div>
+      <div *ngIf="authenticated()" class="nav-item">
+        <a (click)="logout()" class="nav-link" href="#"><fa-icon [icon]="faSignOutAlt"></fa-icon> Logout</a>
       </div>
     </ul>
-    <div class="form-inline my-2 my-lg-0">
+    <div [hidden]="!authenticated()" class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" (change)="search()">
-      <button i18n="@@Search" class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="search()">Search</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="search()">Search</button>
     </div>
   </div>
 </nav>

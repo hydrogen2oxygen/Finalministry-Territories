@@ -1,1 +1,4 @@
-<p>dashboard works!</p>
+<app-logged-out-dashboard *ngIf="!authenticated()"></app-logged-out-dashboard>
+<div *ngIf="authenticated()">
+  <p>dashboard works!</p>
+</div>
