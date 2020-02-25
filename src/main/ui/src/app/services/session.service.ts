@@ -7,7 +7,6 @@ import {BaseUrlUtility} from "../utilities/BaseUrlUtility";
 })
 export class SessionService {
 
-  serverUrl:string = `${BaseUrlUtility.getBaseUrl()}`;
   authenticated = false;
   user:any = null;
 
@@ -20,7 +19,7 @@ export class SessionService {
       authorization: 'Basic ' + btoa(username + ':' + password)
     });
 
-    this.http.get(this.serverUrl + '/authentication', {headers: headers}).subscribe(user => {
+    this.http.get(BaseUrlUtility.getBaseUrl() + '/authentication', {headers: headers}).subscribe(user => {
 
       if (user['name']) {
         this.authenticated = true;
