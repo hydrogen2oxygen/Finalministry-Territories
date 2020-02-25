@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.app.authenticate(this.loginForm.getRawValue().username, this.loginForm.getRawValue().password, () => {
       if (this.app.authenticated) {
-        this.router.navigateByUrl(BaseUrlUtility.getBaseUrl());
+        this.router.navigateByUrl("");
       } else {
         this.toastr.error("Authentification failed!","Login Error");
       }
