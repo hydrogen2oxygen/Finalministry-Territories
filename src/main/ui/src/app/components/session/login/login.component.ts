@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {SessionService} from "../../../services/session.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
+import {BaseUrlUtility} from "../../../utilities/BaseUrlUtility";
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.app.authenticate(this.loginForm.getRawValue().username, this.loginForm.getRawValue().password, () => {
       if (this.app.authenticated) {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl(BaseUrlUtility.getBaseUrl());
       } else {
         this.toastr.error("Authentification failed!","Login Error");
       }
