@@ -1,19 +1,35 @@
 package net.hydrogen2oxygen.finalministry.controller;
 
 import net.hydrogen2oxygen.finalministry.dto.UserDto;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.request.WebRequest;
+import net.hydrogen2oxygen.finalministry.jpa.User;
+import net.hydrogen2oxygen.finalministry.jpa.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.UUID;
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RestController
+@RequestMapping("userRegistration")
 public class RegistrationController {
 
-    @RequestMapping(value = "/user/registration", method = RequestMethod.GET)
-    public String showRegistrationForm(WebRequest request, Model model) {
-        UserDto userDto = new UserDto();
-        model.addAttribute("user", userDto);
-        return "/registration";
+    @Autowired
+    private UserRepository userRepository;
+
+    @PostMapping
+    public String showRegistrationForm(@RequestBody UserDto userDto) {
+
+        User user = new User();
+        user.setUserName(userDto.getUserName());
+        user.setEmail(userDto.getEmail());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setPassword(UUID.randomUUID().toString());
+
+        // TODO email password to user
+
+        userRepository.save(user);
+
+        return "done";
     }
 }
