@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'territories', component: TerritoriesComponent},
   {path: 'map', component: MapComponent},
   {path: 'settings', component: SettingsComponent},
-  { path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({
