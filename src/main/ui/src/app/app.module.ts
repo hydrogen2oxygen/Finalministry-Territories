@@ -18,6 +18,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { RegisterNewUserComponent } from './components/session/register-new-user/register-new-user.component';
 import { LoggedOutDashboardComponent } from './components/dashboard/logged-out-dashboard/logged-out-dashboard.component';
+import { ResetPasswordComponent } from './components/session/reset-password/reset-password.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -40,7 +41,8 @@ export class XhrInterceptor implements HttpInterceptor {
     TerritoriesComponent,
     LoginComponent,
     RegisterNewUserComponent,
-    LoggedOutDashboardComponent
+    LoggedOutDashboardComponent,
+    ResetPasswordComponent
   ],
   imports: [
     NgbModule,

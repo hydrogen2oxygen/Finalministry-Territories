@@ -9,28 +9,28 @@
   <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li [hidden]="!authenticated()" class="nav-item">
-        <a class="nav-link disabled" href="#" aria-disabled="true"><fa-icon [icon]="faBuilding"></fa-icon> Congregations</a>
+        <a (click)="collapseMenu()" class="nav-link disabled" href="#" aria-disabled="true"><fa-icon [icon]="faBuilding"></fa-icon> Congregations</a>
       </li>
       <li [hidden]="!authenticated()" class="nav-item">
-        <a class="nav-link disabled" href="#" aria-disabled="true"><fa-icon [icon]="faUsers"></fa-icon> Users</a>
+        <a (click)="collapseMenu()" class="nav-link disabled" href="#" aria-disabled="true"><fa-icon [icon]="faUsers"></fa-icon> Users</a>
       </li>
       <li [hidden]="!authenticated()" class="nav-item">
-        <a routerLink="territories" class="nav-link" href="#"><fa-icon [icon]="faBook"></fa-icon>Territories</a>
+        <a (click)="collapseMenu()" routerLink="territories" class="nav-link" href="#"><fa-icon [icon]="faBook"></fa-icon>Territories</a>
       </li>
       <li [hidden]="!authenticated()" class="nav-item">
-        <a routerLink="map" class="nav-link" href="#"><fa-icon [icon]="faMapMarkerAlt"></fa-icon> Maps</a>
+        <a (click)="collapseMenu()" routerLink="map" class="nav-link" href="#"><fa-icon [icon]="faMapMarkerAlt"></fa-icon> Maps</a>
       </li>
       <li [hidden]="!authenticated()" class="nav-item">
-        <a class="nav-link disabled" href="#" aria-disabled="true"><fa-icon [icon]="faTools"></fa-icon> Tools</a>
+        <a (click)="collapseMenu()" class="nav-link disabled" href="#" aria-disabled="true"><fa-icon [icon]="faTools"></fa-icon> Tools</a>
       </li>
       <div [hidden]="!authenticated()" class="nav-item">
-        <a routerLink="settings" class="nav-link" href="#"><fa-icon [icon]="faCog"></fa-icon> Settings</a>
+        <a (click)="collapseMenu()" routerLink="settings" class="nav-link" href="#"><fa-icon [icon]="faCog"></fa-icon> Settings</a>
       </div>
       <div [hidden]="authenticated()" class="nav-item">
-        <a routerLinkActive="active" routerLink="/login" class="nav-link" href="#"><fa-icon [icon]="faSignInAlt"></fa-icon> Login</a>
+        <a (click)="collapseMenu()" routerLinkActive="active" routerLink="/login" class="nav-link" href="#"><fa-icon [icon]="faSignInAlt"></fa-icon> Login</a>
       </div>
       <div *ngIf="authenticated()" class="nav-item">
-        <a class="nav-link"><fa-icon [icon]="faUser"></fa-icon> {{getUser().name}}</a>
+        <a (click)="collapseMenu()" class="nav-link"><fa-icon [icon]="faUser"></fa-icon> {{getUser().name}}</a>
       </div>
       <div *ngIf="authenticated()" class="nav-item">
         <a (click)="logout()" class="nav-link" href="#"><fa-icon [icon]="faSignOutAlt"></fa-icon> Logout</a>

@@ -12,5 +12,8 @@
     <input type="checkbox" class="form-check-input" id="stayLoggedIn" name="stayLoggedIn" formControlName="stayLoggedIn"/>
     <small id="stayLoggedInHelp" class="form-text text-muted">We love cookies!</small>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <div class="form-group alert alert-danger" *ngIf="error">
+    Login failed!
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button> <a routerLink="/resetPassword" style="margin-left: 1rem" type="submit" class="btn btn-warning">Reset password</a>
 </form>

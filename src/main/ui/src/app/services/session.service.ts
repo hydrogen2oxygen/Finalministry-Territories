@@ -24,10 +24,12 @@ export class SessionService {
       if (user['name']) {
         this.authenticated = true;
         this.user = user;
-        console.log(user)
+        console.log(user);
+        localStorage.setItem("userObject", JSON.stringify(this.user));
       } else {
         this.authenticated = false;
         this.user = null;
+        localStorage.removeItem("userObject");
       }
 
       return callback && callback();

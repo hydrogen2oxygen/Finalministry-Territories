@@ -31,13 +31,15 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+
     this.app.authenticate(this.loginForm.getRawValue().username, this.loginForm.getRawValue().password, () => {
       if (this.app.authenticated) {
+        this.error = false;
         this.router.navigate(['/home']);
       } else {
-        this.toastr.error("Authentification failed!","Login Error");
+        console.error("Login failed");
+        this.error = true;
       }
     });
-    return false;
   }
 }
