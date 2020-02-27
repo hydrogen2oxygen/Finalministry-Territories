@@ -25,8 +25,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.formbuilder.group({
       username: '',
-      password: '',
-      stayLoggedIn: false
+      password: ''
     });
   }
 
@@ -38,6 +37,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       } else {
         console.error("Login failed");
+        // this.toastr.warning('ERROR'); FIXME 
         this.error = true;
       }
     });
