@@ -19,6 +19,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { RegisterNewUserComponent } from './components/session/register-new-user/register-new-user.component';
 import { LoggedOutDashboardComponent } from './components/dashboard/logged-out-dashboard/logged-out-dashboard.component';
 import { ResetPasswordComponent } from './components/session/reset-password/reset-password.component';
+import {DeviceDetectorModule} from "ngx-device-detector";
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -52,7 +53,8 @@ export class XhrInterceptor implements HttpInterceptor {
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DeviceDetectorModule.forRoot()
   ],
   providers: [SessionService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]

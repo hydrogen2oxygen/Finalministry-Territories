@@ -1,5 +1,5 @@
 <h3>Create a new account</h3>
-<form role="form" [formGroup]="registerUserForm" (submit)="registerNewUser()">
+<form role="form" [formGroup]="registerUserForm" (submit)="registerNewUser()" *ngIf="!registered && !error">
   <div class="form-group">
     <label for="email">Email:</label>
     <input type="text" class="form-control" id="email" name="email" formControlName="email"/>
@@ -27,4 +27,5 @@
 </div>
 <div class="jumbotron text-danger" *ngIf="error">
   <p class="lead">An error occurred: {{error}}</p>
+  <button class="btn btn-primary" (click)="tryAgain()">Try again!</button>
 </div>

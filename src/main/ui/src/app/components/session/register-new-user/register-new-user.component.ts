@@ -45,4 +45,9 @@ export class RegisterNewUserComponent implements OnInit {
       }
     );
   }
+
+  tryAgain() {
+    this.error = null;
+    this.registered = false;
+  }
 }
