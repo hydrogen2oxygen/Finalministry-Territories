@@ -1,4 +1,4 @@
-package net.hydrogen2oxygen.finalministry.controller;
+package net.hydrogen2oxygen.finalministry.rest;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

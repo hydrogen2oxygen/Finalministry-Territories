@@ -22,3 +22,9 @@
   </div>
   <button type="submit" class="btn btn-success">Save</button>
 </form>
+<div class="jumbotron" *ngIf="registered">
+  <p class="lead">Thanks for registering {{registerUserForm.getRawValue().firstName}}! You receive your password via email and once your territory manager activates your account you can login.</p>
+</div>
+<div class="jumbotron text-danger" *ngIf="error">
+  <p class="lead">An error occurred: {{error}}</p>
+</div>
