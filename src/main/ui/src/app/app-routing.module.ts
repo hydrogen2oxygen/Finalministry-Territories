@@ -7,10 +7,12 @@ import {TerritoriesComponent} from "./components/territories/territories.compone
 import {LoginComponent} from "./components/session/login/login.component";
 import {ResetPasswordComponent} from "./components/session/reset-password/reset-password.component";
 import {RegisterNewUserComponent} from "./components/session/register-new-user/register-new-user.component";
+import {UsersComponent} from "./components/users/users.component";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},
   {path: 'home', component: DashboardComponent},
+  {path: 'users', component: UsersComponent},
   {path: 'territories', component: TerritoriesComponent},
   {path: 'map', component: MapComponent},
   {path: 'settings', component: SettingsComponent},

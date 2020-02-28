@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {SessionService} from "../../services/session.service";
 import {BaseUrlUtility} from "../../utilities/BaseUrlUtility";
+import {SESSION_STORAGE, StorageService} from "ngx-webstorage-service";
 import {
   faBook,
   faBuilding,
@@ -14,6 +15,7 @@ import {
   faUser,
   faUsers
 } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-menu',
@@ -36,7 +38,11 @@ export class MenuComponent implements OnInit {
   isMenuCollapsed: boolean = true;
   serverUrl:string = `${BaseUrlUtility.getBaseUrl()}}`;
 
-  constructor(private sessionService: SessionService, private http: HttpClient, private router: Router) {
+  constructor(private sessionService: SessionService,
+              private http: HttpClient,
+              private router: Router,
+              @Inject(SESSION_STORAGE) private sessionStorage: StorageService
+  ) {
   }
 
   ngOnInit() {
@@ -50,7 +56,7 @@ export class MenuComponent implements OnInit {
 
     this.isMenuCollapsed = true;
     this.sessionService.authenticated = false;
-    localStorage.removeItem("userObject");
+    this.sessionStorage.clear();
 
     this.http.post(this.serverUrl + '/logout', {}).subscribe(() => {
       console.log("Logout successful!");
