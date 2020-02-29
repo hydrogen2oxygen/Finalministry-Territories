@@ -14,6 +14,6 @@ export class DashboardComponent implements OnInit {
   }
 
   authenticated() {
-    return this.sessionService.authenticated;
+    return this.sessionService.isAuthenticated();
   }
 }

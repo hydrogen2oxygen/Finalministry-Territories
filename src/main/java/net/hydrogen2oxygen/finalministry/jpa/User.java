@@ -1,6 +1,7 @@
 package net.hydrogen2oxygen.finalministry.jpa;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -18,12 +19,11 @@ public class User {
     private String firstName;
     private String lastName;
     private String password;
+    private Calendar registrationDate;
 
     // TODO congregation
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    private String roles;
 
     public UUID getId() {
         return id;
@@ -57,11 +57,11 @@ public class User {
         this.password = password;
     }
 
-    public Collection<Role> getRoles() {
+    public String getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(String roles) {
         this.roles = roles;
     }
 

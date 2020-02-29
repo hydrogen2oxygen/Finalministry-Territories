@@ -2,19 +2,34 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BaseUrlUtility} from "../utilities/BaseUrlUtility";
 import {SESSION_STORAGE, StorageService} from "ngx-webstorage-service";
+import {Observable} from "rxjs";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
 
-  authenticated = false;
-  user:any = null;
+  private authenticated = false;
+  private user:any = null;
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     @Inject(SESSION_STORAGE) private sessionStorage: StorageService
   ) {
+  }
+
+  isAuthenticated():boolean {
+
+    if (!this.authenticated) {
+      // check session storage
+      if (this.sessionStorage.get("authorization") != null) {
+        this.authenticated = true;
+      }
+    }
+
+    return this.authenticated;
   }
 
   authenticate(username, password, callback) {
@@ -32,6 +47,7 @@ export class SessionService {
       if (user['name']) {
         this.authenticated = true;
         this.user = user;
+        this.sessionStorage.set("user",user);
         console.log(user);
       } else {
         this.authenticated = false;
@@ -58,5 +74,35 @@ export class SessionService {
     });
 
     return headers;
+  }
+
+  getUser():any {
+
+    if (this.user == null) {
+      this.user = this.sessionStorage.get("user");
+    }
+
+    return this.user;
+  }
+
+  logout():Observable<void> {
+
+    this.user = false;
+    this.authenticated = false;
+    this.sessionStorage.clear();
+
+    return this.http.post<void>(BaseUrlUtility.getBaseUrl() + '/logout', {});
+  }
+
+  /**
+   * Navigate to the login page if the user was logged out
+   */
+  checkSessionActive():boolean {
+    if(!this.isAuthenticated()) {
+      this.router.navigateByUrl('/login');
+      return false;
+    }
+
+    return true;
   }
 }

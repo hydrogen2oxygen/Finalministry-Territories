@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-// TODO set for same domain only
+// TODO set for same domain only (CorsConfiguration)
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("user")

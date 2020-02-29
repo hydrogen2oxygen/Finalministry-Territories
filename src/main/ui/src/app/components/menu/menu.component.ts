@@ -55,21 +55,18 @@ export class MenuComponent implements OnInit {
   logout() {
 
     this.isMenuCollapsed = true;
-    this.sessionService.authenticated = false;
-    this.sessionStorage.clear();
-
-    this.http.post(this.serverUrl + '/logout', {}).subscribe(() => {
+    this.sessionService.logout().subscribe(() => {
       console.log("Logout successful!");
       this.router.navigateByUrl('/login');
     });
   }
 
   getUser() {
-    return this.sessionService.user;
+    return this.sessionService.getUser();
   }
 
   authenticated() {
-    return this.sessionService.authenticated;
+    return this.sessionService.isAuthenticated();
   }
 
   collapseMenu() {

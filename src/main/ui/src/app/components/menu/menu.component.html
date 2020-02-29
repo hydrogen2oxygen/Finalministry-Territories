@@ -30,7 +30,7 @@
         <a (click)="collapseMenu()" routerLinkActive="active" routerLink="/login" class="nav-link" href="#"><fa-icon [icon]="faSignInAlt"></fa-icon> Login</a>
       </div>
       <div *ngIf="authenticated()" class="nav-item">
-        <a (click)="collapseMenu()" class="nav-link"><fa-icon [icon]="faUser"></fa-icon> {{getUser().name}}</a>
+        <a *ngIf="getUser()" (click)="collapseMenu()" class="nav-link"><fa-icon [icon]="faUser"></fa-icon> {{getUser().name}}</a>
       </div>
       <div *ngIf="authenticated()" class="nav-item">
         <a (click)="logout()" class="nav-link" href="#"><fa-icon [icon]="faSignOutAlt"></fa-icon> Logout</a>
