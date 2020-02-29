@@ -8,10 +8,10 @@
 
   <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li [hidden]="!authenticated()" class="nav-item">
+      <li *ngIf="isAdmin()" [hidden]="!authenticated()" class="nav-item">
         <a (click)="collapseMenu()" class="nav-link disabled" href="#" aria-disabled="true"><fa-icon [icon]="faBuilding"></fa-icon> Congregations</a>
       </li>
-      <li [hidden]="!authenticated()" class="nav-item">
+      <li *ngIf="isAdmin()" [hidden]="!authenticated()" class="nav-item">
         <a (click)="collapseMenu()" routerLink="users" class="nav-link"><fa-icon [icon]="faUsers"></fa-icon> Users</a>
       </li>
       <li [hidden]="!authenticated()" class="nav-item">
@@ -20,7 +20,7 @@
       <li [hidden]="!authenticated()" class="nav-item">
         <a (click)="collapseMenu()" routerLink="map" class="nav-link"><fa-icon [icon]="faMapMarkerAlt"></fa-icon> Maps</a>
       </li>
-      <li [hidden]="!authenticated()" class="nav-item">
+      <li *ngIf="isAdmin()" [hidden]="!authenticated()" class="nav-item">
         <a (click)="collapseMenu()" class="nav-link disabled" aria-disabled="true"><fa-icon [icon]="faTools"></fa-icon> Tools</a>
       </li>
       <div [hidden]="!authenticated()" class="nav-item">

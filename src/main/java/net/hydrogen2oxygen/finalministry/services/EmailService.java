@@ -20,9 +20,12 @@ public class EmailService {
     @Value("${spring.mail.host}")
     private String host;
 
+    @Value("${spring.mail.port}")
+    private String port;
+
     public void sendSimpleMessage(Mail mail){
 
-        if ("localhost".equals(host)) {
+        if ("localhost".equals(host) && "2525".equals(port)) {
             logger.info("We are development mode, so no real email service!");
             return;
         }

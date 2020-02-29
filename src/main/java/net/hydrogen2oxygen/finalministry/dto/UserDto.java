@@ -25,6 +25,8 @@ public class UserDto {
     @NotEmpty
     private String email;
 
+    private String roles;
+
     public String getFirstName() {
         return firstName;
     }
@@ -63,6 +65,14 @@ public class UserDto {
 
     public void setCongregation(String congregation) {
         this.congregation = congregation;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     @Override

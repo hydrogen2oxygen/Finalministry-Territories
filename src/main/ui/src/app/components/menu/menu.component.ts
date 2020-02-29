@@ -65,6 +65,10 @@ export class MenuComponent implements OnInit {
     return this.sessionService.getUser();
   }
 
+  isAdmin():boolean {
+    return this.sessionService.hasRole("ADMIN");
+  }
+
   authenticated() {
     return this.sessionService.isAuthenticated();
   }

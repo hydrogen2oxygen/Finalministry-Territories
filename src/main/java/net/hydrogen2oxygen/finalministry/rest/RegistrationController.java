@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.UUID;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -34,16 +35,22 @@ public class RegistrationController {
     public ResponseEntity userRegistration(@RequestBody UserDto userDto) {
 
         String password = UUID.randomUUID().toString();
+        logger.info(userDto.toString());
+        logger.info(password);
 
         try {
+
             User user = new User();
+
             user.setUserName(userDto.getUserName());
             user.setEmail(userDto.getEmail());
             user.setFirstName(userDto.getFirstName());
             user.setLastName(userDto.getLastName());
             user.setPassword(new BCryptPasswordEncoder().encode(password));
+            user.setRegistrationDate(Calendar.getInstance());
 
             userRepository.save(user);
+
         } catch (DataIntegrityViolationException e) {
             logger.error("User already exists", e);
             return new ResponseEntity("User already exists!", HttpStatus.NOT_ACCEPTABLE);

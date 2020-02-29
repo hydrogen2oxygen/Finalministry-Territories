@@ -80,4 +80,12 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public Calendar getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Calendar registrationDate) {
+        this.registrationDate = registrationDate;
+    }
 }

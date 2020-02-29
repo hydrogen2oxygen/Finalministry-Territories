@@ -4,6 +4,7 @@ import {BaseUrlUtility} from "../utilities/BaseUrlUtility";
 import {SESSION_STORAGE, StorageService} from "ngx-webstorage-service";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
+import {User} from "../domain/User";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class SessionService {
 
   private authenticated = false;
   private user:any = null;
+  private roles:string;
 
   constructor(
     private http: HttpClient,
@@ -49,6 +51,12 @@ export class SessionService {
         this.user = user;
         this.sessionStorage.set("user",user);
         console.log(user);
+
+        this.http.get<User>(BaseUrlUtility.getBaseUrl() + '/user/current', {headers: headers}).subscribe(user => {
+          console.log(user);
+          this.roles = user.roles;
+          this.sessionStorage.set("roles", this.roles);
+        });
       } else {
         this.authenticated = false;
         this.user = null;
@@ -74,6 +82,17 @@ export class SessionService {
     });
 
     return headers;
+  }
+
+  hasRole(roleName:string):boolean {
+
+    if (this.roles == null) {
+      this.roles = this.sessionStorage.get("roles");
+    }
+
+    if (this.roles == null) return false;
+
+    return this.roles.includes(roleName);
   }
 
   getUser():any {

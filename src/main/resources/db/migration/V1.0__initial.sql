@@ -42,6 +42,7 @@ CREATE CACHED TABLE "PUBLIC"."USER"(
                                        "FIRST_NAME" VARCHAR(255),
                                        "LAST_NAME" VARCHAR(255),
                                        "PASSWORD" VARCHAR(255),
+                                       "REGISTRATION_DATE" TIMESTAMP,
                                        "ROLES" VARCHAR(255),
                                        "USER_NAME" VARCHAR(255)
 );
