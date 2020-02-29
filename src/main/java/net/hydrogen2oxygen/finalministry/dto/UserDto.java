@@ -1,5 +1,7 @@
 package net.hydrogen2oxygen.finalministry.dto;
 
+import net.hydrogen2oxygen.finalministry.jpa.User;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -26,6 +28,12 @@ public class UserDto {
     private String email;
 
     private String roles;
+
+    public UserDto(){}
+
+    public UserDto(User user) {
+        userName = user.getUserName();
+    }
 
     public String getFirstName() {
         return firstName;

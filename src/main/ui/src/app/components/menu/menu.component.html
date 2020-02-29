@@ -24,13 +24,10 @@
         <a (click)="collapseMenu()" class="nav-link disabled" aria-disabled="true"><fa-icon [icon]="faTools"></fa-icon> Tools</a>
       </li>
       <div [hidden]="!authenticated()" class="nav-item">
-        <a (click)="collapseMenu()" routerLink="settings" class="nav-link"><fa-icon [icon]="faCog"></fa-icon> Settings</a>
+        <a (click)="collapseMenu()" routerLink="settings" class="nav-link"><fa-icon [icon]="faCog"></fa-icon> Settings ({{getUser().name}})</a>
       </div>
       <div [hidden]="authenticated()" class="nav-item">
         <a (click)="collapseMenu()" routerLinkActive="active" routerLink="/login" class="nav-link" href="#"><fa-icon [icon]="faSignInAlt"></fa-icon> Login</a>
-      </div>
-      <div *ngIf="authenticated()" class="nav-item">
-        <a *ngIf="getUser()" (click)="collapseMenu()" class="nav-link"><fa-icon [icon]="faUser"></fa-icon> {{getUser().name}}</a>
       </div>
       <div *ngIf="authenticated()" class="nav-item">
         <a (click)="logout()" class="nav-link" href="#"><fa-icon [icon]="faSignOutAlt"></fa-icon> Logout</a>
