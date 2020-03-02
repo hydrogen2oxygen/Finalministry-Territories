@@ -11,6 +11,8 @@ import {BaseUrlUtility} from "../../../utilities/BaseUrlUtility";
 export class RegisterNewUserComponent implements OnInit {
 
   registerUserForm: FormGroup;
+  registered: boolean =false;
+  error: string;
 
   constructor(private formbuilder: FormBuilder,
               private http: HttpClient) {
@@ -28,14 +30,24 @@ export class RegisterNewUserComponent implements OnInit {
 
   registerNewUser() {
     let form: any = this.registerUserForm.getRawValue();
-    console.log(form);
+
+    this.error = null;
+    this.registered = false;
+
     this.http.post(BaseUrlUtility.getBaseUrl() + "/userRegistration", form).subscribe(
       result => {
+        this.registered = true;
         console.log(result);
       },
       error => {
         console.error(error);
+        this.error = error.error;
       }
     );
+  }
+
+  tryAgain() {
+    this.error = null;
+    this.registered = false;
   }
 }

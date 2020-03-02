@@ -1,7 +1,8 @@
-package net.hydrogen2oxygen.finalministry.controller;
+package net.hydrogen2oxygen.finalministry.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,21 +14,18 @@ import java.io.IOException;
 /**
  * Use this to create a dump of the H2 database for use with flyway
  */
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-@RestController
-public class DumpDbController {
+@Service
+public class DumpDbService {
 
     private final Object monitor = new Object();
 
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public DumpDbController(JdbcTemplate jdbcTemplate) {
+    public DumpDbService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @RequestMapping("/dumpDb")
-    @ResponseBody
     public void dumpDb() throws IOException {
         synchronized (this.monitor) {
             File dump = new File("dump.sql");

@@ -6,7 +6,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.UUID;
 
-@RepositoryRestResource(collectionResourceRel = "user", path = "user")
+@RepositoryRestResource(collectionResourceRel = "user", path = "internal_user", exported = false)
 public interface UserRepository extends JpaRepository<User, UUID> {
 
     User findByUserName(String userName);

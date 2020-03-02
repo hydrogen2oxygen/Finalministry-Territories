@@ -1,5 +1,7 @@
 package net.hydrogen2oxygen.finalministry.dto;
 
+import net.hydrogen2oxygen.finalministry.jpa.User;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -24,6 +26,14 @@ public class UserDto {
     @NotNull
     @NotEmpty
     private String email;
+
+    private String roles;
+
+    public UserDto(){}
+
+    public UserDto(User user) {
+        userName = user.getUserName();
+    }
 
     public String getFirstName() {
         return firstName;
@@ -63,6 +73,14 @@ public class UserDto {
 
     public void setCongregation(String congregation) {
         this.congregation = congregation;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     @Override

@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
 
   constructor(
-      private app: SessionService,
+      private sessionService: SessionService,
       private formbuilder: FormBuilder,
       private http: HttpClient,
       private router: Router,
@@ -31,13 +31,13 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    this.app.authenticate(this.loginForm.getRawValue().username, this.loginForm.getRawValue().password, () => {
-      if (this.app.authenticated) {
+    this.sessionService.authenticate(this.loginForm.getRawValue().username, this.loginForm.getRawValue().password, () => {
+      if (this.sessionService.isAuthenticated()) {
         this.error = false;
         this.router.navigate(['/home']);
       } else {
         console.error("Login failed");
-        // this.toastr.warning('ERROR'); FIXME 
+        // this.toastr.warning('ERROR'); FIXME
         this.error = true;
       }
     });

@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {SessionService} from "../../services/session.service";
 import {BaseUrlUtility} from "../../utilities/BaseUrlUtility";
+import {SESSION_STORAGE, StorageService} from "ngx-webstorage-service";
 import {
   faBook,
   faBuilding,
@@ -14,6 +15,7 @@ import {
   faUser,
   faUsers
 } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-menu',
@@ -36,7 +38,11 @@ export class MenuComponent implements OnInit {
   isMenuCollapsed: boolean = true;
   serverUrl:string = `${BaseUrlUtility.getBaseUrl()}}`;
 
-  constructor(private sessionService: SessionService, private http: HttpClient, private router: Router) {
+  constructor(private sessionService: SessionService,
+              private http: HttpClient,
+              private router: Router,
+              @Inject(SESSION_STORAGE) private sessionStorage: StorageService
+  ) {
   }
 
   ngOnInit() {
@@ -49,21 +55,22 @@ export class MenuComponent implements OnInit {
   logout() {
 
     this.isMenuCollapsed = true;
-    this.sessionService.authenticated = false;
-    localStorage.removeItem("userObject");
-
-    this.http.post(this.serverUrl + '/logout', {}).subscribe(() => {
+    this.sessionService.logout().subscribe(() => {
       console.log("Logout successful!");
       this.router.navigateByUrl('/login');
     });
   }
 
   getUser() {
-    return this.sessionService.user;
+    return this.sessionService.getUser();
+  }
+
+  isAdmin():boolean {
+    return this.sessionService.hasRole("ADMIN");
   }
 
   authenticated() {
-    return this.sessionService.authenticated;
+    return this.sessionService.isAuthenticated();
   }
 
   collapseMenu() {

@@ -4,7 +4,7 @@
   <router-outlet></router-outlet>
 </div>
 </main>
-<footer class="footer mt-auto py-3 stickyFooter">
+<footer *ngIf="!mobileDevice" class="footer mt-auto py-3 stickyFooter">
   <div class="container">
     <span class="text-muted text-wrap">Finalministry Territories Version 1.0</span>
   </div>
