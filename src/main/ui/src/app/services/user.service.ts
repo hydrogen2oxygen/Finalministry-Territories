@@ -14,7 +14,10 @@ export class UserService {
               private sessionService: SessionService) { }
 
   getAllUser():Observable<User[]>{
-console.log('getAllUser');
     return this.http.get<User[]>(BaseUrlUtility.getBaseUrl() + "/user", {headers: this.sessionService.getAuthorizationHeaders()});
+  }
+
+  saveUserPassword(userName:string, password:string):Observable<void> {
+    return this.http.put<void>(BaseUrlUtility.getBaseUrl() + "/user/" + encodeURIComponent(userName) + "/password/" + encodeURIComponent(password), null, {headers: this.sessionService.getAuthorizationHeaders()});
   }
 }

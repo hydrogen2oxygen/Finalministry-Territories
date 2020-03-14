@@ -1,6 +1,5 @@
 package net.hydrogen2oxygen.finalministry.rest;
 
-import net.hydrogen2oxygen.finalministry.dto.UserDto;
 import net.hydrogen2oxygen.finalministry.jpa.User;
 import net.hydrogen2oxygen.finalministry.jpa.repositories.UserRepository;
 import net.hydrogen2oxygen.finalministry.services.EmailService;
@@ -32,25 +31,16 @@ public class RegistrationController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity userRegistration(@RequestBody UserDto userDto) {
+    public ResponseEntity userRegistration(@RequestBody User user) {
 
         String password = UUID.randomUUID().toString();
-        logger.info(userDto.toString());
+        logger.info(user.toString());
         logger.info(password);
 
         try {
-
-            User user = new User();
-
-            user.setUserName(userDto.getUserName());
-            user.setEmail(userDto.getEmail());
-            user.setFirstName(userDto.getFirstName());
-            user.setLastName(userDto.getLastName());
             user.setPassword(new BCryptPasswordEncoder().encode(password));
             user.setRegistrationDate(Calendar.getInstance());
-
             userRepository.save(user);
-
         } catch (DataIntegrityViolationException e) {
             logger.error("User already exists", e);
             return new ResponseEntity("User already exists!", HttpStatus.NOT_ACCEPTABLE);
@@ -62,9 +52,9 @@ public class RegistrationController {
         try {
             Mail mail = new Mail();
             mail.setFrom("territory@jw-software.org"); // TODO from settings + translations
-            mail.setTo(userDto.getEmail());
+            mail.setTo(user.getEmail());
             mail.setSubject("Registration at Finalministry Territories");
-            mail.setContent("Dear " + userDto.getFirstName()
+            mail.setContent("Dear " + user.getFirstName()
                     + ",\n\nthanks for creating an account on Finalministry Territories.\n"
                     + "Your automatically generated password is:\n\n"
                     + password
