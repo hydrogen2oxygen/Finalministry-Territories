@@ -22,6 +22,7 @@ import { ResetPasswordComponent } from './components/session/reset-password/rese
 import {DeviceDetectorModule} from "ngx-device-detector";
 import { UsersComponent } from './components/users/users.component';
 import { UserDetailsComponent } from './components/users/user-details/user-details.component';
+import { NewUserComponent } from './components/users/new-user/new-user.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -47,7 +48,8 @@ export class XhrInterceptor implements HttpInterceptor {
     LoggedOutDashboardComponent,
     ResetPasswordComponent,
     UsersComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    NewUserComponent
   ],
   imports: [
     NgbModule,
