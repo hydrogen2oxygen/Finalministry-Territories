@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {PasswordCheckService, PasswordCheckStrength} from "../../services/password-check.service";
 import {UserService} from "../../services/user.service";
 import {SessionService} from "../../services/session.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-settings',
@@ -19,7 +20,8 @@ export class SettingsComponent implements OnInit {
     private formBuilder:FormBuilder,
     private passwordCheckService:PasswordCheckService,
     private userService:UserService,
-    private sessionService:SessionService
+    private sessionService:SessionService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -53,6 +55,9 @@ export class SettingsComponent implements OnInit {
     console.log('Save password ...');
     this.userService.saveUserPassword(this.sessionService.getUser().name, this.settingsPasswordForm.getRawValue().password).subscribe(() => {
       console.log("OK password saved");
+      this.sessionService.saveAuthorizationInSession(this.sessionService.getUser().name, this.settingsPasswordForm.getRawValue().password);
+      this.settingsPasswordForm.reset();
+      this.toastr.info('Password saved!','Settings info');
     });
   }
 }

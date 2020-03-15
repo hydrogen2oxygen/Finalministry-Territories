@@ -67,4 +67,13 @@ public class UserRest {
 
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @PutMapping
+    @ResponseBody
+    public ResponseEntity changeUserDetails(@RequestBody User user) {
+
+        User persistedUser = userRepository.save(user);
+
+        return new ResponseEntity(persistedUser, HttpStatus.OK);
+    }
 }
