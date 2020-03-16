@@ -49,7 +49,6 @@ export class UserDetailsComponent implements OnInit {
 
   private persistUser() {
     this.userService.putUser(this.user).subscribe(() => {
-      console.log(this.callbackFunction);
       this.callbackFunction();
     });
   }
