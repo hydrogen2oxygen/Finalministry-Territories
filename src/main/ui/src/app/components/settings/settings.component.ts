@@ -37,7 +37,7 @@ export class SettingsComponent implements OnInit {
     return this.passwordStrength;
   }
 
-  saveSettings() {
+  saveNewPassword() {
 
     if (this.checkPasswordStrength() != PasswordCheckStrength.Strong) {
       this.error = 'Your password is not strong!';
