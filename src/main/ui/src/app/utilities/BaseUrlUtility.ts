@@ -12,7 +12,6 @@ export class BaseUrlUtility {
 
     if (!environment.production) {
       baseUrl += ":" + environment.serverPort;
-      console.log("baseUrl = " + baseUrl);
     }
 
     return baseUrl;

@@ -1,58 +1,76 @@
 ;
-CREATE USER IF NOT EXISTS "SA" SALT 'f2df1d06462bd048' HASH '2049fe487e66336f7be36d02fd1caef83a9199e221152c4a6927cf75c0412f0d' ADMIN;
+CREATE USER IF NOT EXISTS "SA" SALT '636f66ada9c9a97b' HASH '82b48928efd79a35cfa807d1f248ae34d76951766b5fd458a345ec1fbba4378d' ADMIN;
+CREATE CACHED TABLE "PUBLIC"."flyway_schema_history"(
+    "installed_rank" INT NOT NULL,
+    "version" VARCHAR(50),
+    "description" VARCHAR(200) NOT NULL,
+    "type" VARCHAR(20) NOT NULL,
+    "script" VARCHAR(1000) NOT NULL,
+    "checksum" INT,
+    "installed_by" VARCHAR(100) NOT NULL,
+    "installed_on" TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "execution_time" INT NOT NULL,
+    "success" BOOLEAN NOT NULL
+);
+ALTER TABLE "PUBLIC"."flyway_schema_history" ADD CONSTRAINT "PUBLIC"."flyway_schema_history_pk" PRIMARY KEY("installed_rank");
+-- 2 +/- SELECT COUNT(*) FROM PUBLIC.flyway_schema_history;
+INSERT INTO "PUBLIC"."flyway_schema_history" VALUES
+(-1, NULL, '<< Flyway Schema History table created >>', 'TABLE', '', NULL, 'SA', TIMESTAMP '2020-03-16 11:04:56.301296', 0, TRUE),
+(1, '1', '<< Flyway Baseline >>', 'BASELINE', '<< Flyway Baseline >>', NULL, 'SA', TIMESTAMP '2020-03-16 11:04:56.340294', 0, TRUE);
+CREATE INDEX "PUBLIC"."flyway_schema_history_s_idx" ON "PUBLIC"."flyway_schema_history"("success");
 CREATE CACHED TABLE "PUBLIC"."MINISTER"(
-                                           "ID" BINARY NOT NULL,
-                                           "NAME" VARCHAR(255)
+    "ID" BINARY NOT NULL,
+    "NAME" VARCHAR(255)
 );
 ALTER TABLE "PUBLIC"."MINISTER" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_D" PRIMARY KEY("ID");
 -- 0 +/- SELECT COUNT(*) FROM PUBLIC.MINISTER;
 CREATE CACHED TABLE "PUBLIC"."PASSWORD_RESET_TOKEN"(
-                                                       "ID" BINARY NOT NULL,
-                                                       "EXPIRY_DATE" TIMESTAMP,
-                                                       "TOKEN" VARCHAR(255),
-                                                       "USER_ID" BINARY NOT NULL
+    "ID" BINARY NOT NULL,
+    "EXPIRY_DATE" TIMESTAMP,
+    "TOKEN" VARCHAR(255),
+    "USER_ID" BINARY NOT NULL
 );
 ALTER TABLE "PUBLIC"."PASSWORD_RESET_TOKEN" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_C" PRIMARY KEY("ID");
 -- 0 +/- SELECT COUNT(*) FROM PUBLIC.PASSWORD_RESET_TOKEN;
 CREATE CACHED TABLE "PUBLIC"."TERRITORY"(
-                                            "ID" BINARY NOT NULL,
-                                            "NAME" VARCHAR(255),
-                                            "NUMBER" VARCHAR(255),
-                                            "URL_FOR_GOOGLE_MAP" VARCHAR(255),
-                                            "URL_FOR_JPEG_MAP" VARCHAR(255)
+    "ID" BINARY NOT NULL,
+    "NAME" VARCHAR(255),
+    "NUMBER" VARCHAR(255),
+    "URL_FOR_GOOGLE_MAP" VARCHAR(255),
+    "URL_FOR_JPEG_MAP" VARCHAR(255)
 );
 ALTER TABLE "PUBLIC"."TERRITORY" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_2" PRIMARY KEY("ID");
 -- 0 +/- SELECT COUNT(*) FROM PUBLIC.TERRITORY;
 CREATE CACHED TABLE "PUBLIC"."TERRITORY_ENTRY"(
-                                                  "ID" BINARY NOT NULL,
-                                                  "ARCHIVED" BOOLEAN,
-                                                  "CONGREGATION_POOL" BOOLEAN,
-                                                  "MINISTERID" BINARY,
-                                                  "MINISTER_NAME" VARCHAR(255),
-                                                  "REGISTERED" TIMESTAMP,
-                                                  "TERRITORYID" BINARY,
-                                                  "TERRITORY_NAME" VARCHAR(255),
-                                                  "TERRITORY_NUMBER" VARCHAR(255)
+    "ID" BINARY NOT NULL,
+    "ARCHIVED" BOOLEAN,
+    "CONGREGATION_POOL" BOOLEAN,
+    "MINISTERID" BINARY,
+    "MINISTER_NAME" VARCHAR(255),
+    "REGISTERED" TIMESTAMP,
+    "TERRITORYID" BINARY,
+    "TERRITORY_NAME" VARCHAR(255),
+    "TERRITORY_NUMBER" VARCHAR(255)
 );
 ALTER TABLE "PUBLIC"."TERRITORY_ENTRY" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_E" PRIMARY KEY("ID");
 -- 0 +/- SELECT COUNT(*) FROM PUBLIC.TERRITORY_ENTRY;
 CREATE CACHED TABLE "PUBLIC"."USER"(
-                                       "ID" BINARY NOT NULL,
-                                       "EMAIL" VARCHAR(255),
-                                       "FIRST_NAME" VARCHAR(255),
-                                       "LAST_NAME" VARCHAR(255),
-                                       "PASSWORD" VARCHAR(255),
-                                       "REGISTRATION_DATE" TIMESTAMP,
-                                       "ROLES" VARCHAR(255),
-                                       "USER_NAME" VARCHAR(255)
+    "ID" BINARY NOT NULL,
+    "EMAIL" VARCHAR(255),
+    "FIRST_NAME" VARCHAR(255),
+    "LAST_NAME" VARCHAR(255),
+    "PASSWORD" VARCHAR(255),
+    "REGISTRATION_DATE" TIMESTAMP,
+    "ROLES" VARCHAR(255),
+    "USER_NAME" VARCHAR(255)
 );
 ALTER TABLE "PUBLIC"."USER" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_27" PRIMARY KEY("ID");
 -- 0 +/- SELECT COUNT(*) FROM PUBLIC.USER;
 CREATE CACHED TABLE "PUBLIC"."VERIFICATION_TOKEN"(
-                                                     "ID" BINARY NOT NULL,
-                                                     "EXPIRY_DATE" TIMESTAMP,
-                                                     "TOKEN" VARCHAR(255),
-                                                     "USER_ID" BINARY NOT NULL
+    "ID" BINARY NOT NULL,
+    "EXPIRY_DATE" TIMESTAMP,
+    "TOKEN" VARCHAR(255),
+    "USER_ID" BINARY NOT NULL
 );
 ALTER TABLE "PUBLIC"."VERIFICATION_TOKEN" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_8" PRIMARY KEY("ID");
 -- 0 +/- SELECT COUNT(*) FROM PUBLIC.VERIFICATION_TOKEN;

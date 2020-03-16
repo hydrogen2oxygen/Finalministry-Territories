@@ -3,6 +3,7 @@ import {User} from "../../../domain/User";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {UserService} from "../../../services/user.service";
 import {UserUtility} from "../../../utilities/UserUtility";
+import {UserRoles} from "../../../enums/UserRoles";
 
 @Component({
   selector: 'app-user-details',
@@ -14,7 +15,7 @@ export class UserDetailsComponent implements OnInit {
   callbackFunction:() => void;
   user: User;
   selectedRole:string;
-  roles: string[] = ["PREACHER","MAP-DESIGNER","TERRITORY-MANAGER","ADMIN","DEACTIVATED"];
+  roles: string[] = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -23,6 +24,12 @@ export class UserDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    for (let role of Object.values(UserRoles)) {
+      if (role.toString().length < 4) continue;
+      console.log(role);
+      this.roles.push(role.toString());
+    }
+    console.log(this.roles);
     this.selectedRole = this.roles[0];
   }
 

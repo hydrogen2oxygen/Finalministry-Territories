@@ -1,5 +1,6 @@
 package net.hydrogen2oxygen.finalministry.rest;
 
+import net.hydrogen2oxygen.finalministry.enums.UserRoles;
 import net.hydrogen2oxygen.finalministry.jpa.User;
 import net.hydrogen2oxygen.finalministry.jpa.repositories.UserRepository;
 import net.hydrogen2oxygen.finalministry.services.SessionService;
@@ -11,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
-// TODO set for same domain only (CorsConfiguration)
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("user")
@@ -26,6 +27,7 @@ public class UserRest {
 
     /**
      * For authentification, if it is possible to return the user, the basic authentification worked
+     *
      * @param user
      * @return
      */
@@ -38,6 +40,11 @@ public class UserRest {
     @ResponseBody
     public ResponseEntity<User> getCurrentUser() {
         User user = sessionService.getUser();
+
+        if (sessionService.hasRole(UserRoles.DEACTIVATED.name())) {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+
         return new ResponseEntity(user, HttpStatus.OK);
     }
 
@@ -45,12 +52,12 @@ public class UserRest {
     @ResponseBody
     public ResponseEntity getAllUsers() {
 
-        if (sessionService.hasRole("ADMIN")) {
-            List<User> userList = userRepository.findAll();
-            return new ResponseEntity(userList, HttpStatus.OK);
-        } else {
+        if (!sessionService.hasRole(UserRoles.ADMIN.name())) {
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
+
+        List<User> userList = userRepository.findAll();
+        return new ResponseEntity(userList, HttpStatus.OK);
     }
 
     @PutMapping("/{userName}/password/{password}")
@@ -72,8 +79,49 @@ public class UserRest {
     @ResponseBody
     public ResponseEntity changeUserDetails(@RequestBody User user) {
 
-        User persistedUser = userRepository.save(user);
+        if (!sessionService.hasRole(UserRoles.ADMIN.name())) {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
 
+        User persistedUser = userRepository.save(user);
         return new ResponseEntity(persistedUser, HttpStatus.OK);
+    }
+
+    @PostMapping("/validate")
+    @ResponseBody
+    public ResponseEntity validateNewUser(@RequestBody User user) {
+
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            return new ResponseEntity("EMAIL ALREADY EXISTS", HttpStatus.CONFLICT);
+        } else if (userRepository.findByUserName(user.getUserName()) != null) {
+            return new ResponseEntity("USER ALREADY EXISTS", HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+    }
+
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity addNewUser(@RequestBody User user) {
+
+        if (!sessionService.hasRole(UserRoles.ADMIN.name())) {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        User persistedUser = userRepository.save(user);
+        return new ResponseEntity(persistedUser, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity deleteUser(@PathVariable String id) {
+
+        if (!sessionService.hasRole(UserRoles.ADMIN.name())) {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+
+        userRepository.deleteById(UUID.fromString(id));
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

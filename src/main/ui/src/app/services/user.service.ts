@@ -24,4 +24,16 @@ export class UserService {
   putUser(user: User):Observable<void> {
     return this.http.put<void>(BaseUrlUtility.getBaseUrl() + "/user/", user, {headers: this.sessionService.getAuthorizationHeaders()});
   }
+
+  postUser(user: User):Observable<void> {
+    return this.http.post<void>(BaseUrlUtility.getBaseUrl() + "/user/", user, {headers: this.sessionService.getAuthorizationHeaders()});
+  }
+
+  validateUser(user: User):Observable<void> {
+    return this.http.post<void>(BaseUrlUtility.getBaseUrl() + "/user/validate", user, {headers: this.sessionService.getAuthorizationHeaders()});
+  }
+
+  deleteUser(user: User):Observable<void> {
+    return this.http.delete<void>(BaseUrlUtility.getBaseUrl() + "/user/" + user.id, {headers: this.sessionService.getAuthorizationHeaders()});
+  }
 }

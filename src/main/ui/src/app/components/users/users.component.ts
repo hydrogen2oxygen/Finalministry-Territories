@@ -4,6 +4,8 @@ import {UserService} from "../../services/user.service";
 import {SessionService} from "../../services/session.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {UserDetailsComponent} from "./user-details/user-details.component";
+import {NewUserComponent} from "./new-user/new-user.component";
+import {UserRoles} from "../../enums/UserRoles";
 
 @Component({
   selector: 'app-users',
@@ -47,15 +49,38 @@ export class UsersComponent implements OnInit {
   }
 
   deactivateUser(user: User) {
-    user.roles = "DEACTIVATED";
-    this.userService.putUser(user);
+    user.roles = UserRoles.DEACTIVATED.toString();
+    this.updateUser(user);
   }
 
   deleteUser(user: User) {
-    // TODO remove from DB
+    this.userService.deleteUser(user).subscribe(result => {
+      this.reloadUsers();
+    });
   }
 
   deactivatedUser(user: User) {
-    return this.sessionService.hasRole('DEACTIVATED');
+
+    if (user.roles == null) return false;
+    return user.roles.includes(UserRoles.DEACTIVATED.toString());
+  }
+
+  reactivateUser(user: User) {
+    user.roles = UserRoles.PREACHER.toString();
+    this.userService.putUser(user).subscribe( result =>{});
+  }
+
+  addNewUser() {
+    const modalRef = this.modalService.open(NewUserComponent);
+    let that = this;
+    modalRef.componentInstance.callbackFunction = function () {
+      that.reloadUsers();
+      modalRef.close();
+    };
+  }
+
+  private updateUser(user: User) {
+    this.userService.putUser(user).subscribe(result => {
+    });
   }
 }

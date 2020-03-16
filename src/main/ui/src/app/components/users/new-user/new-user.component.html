@@ -1,1 +1,32 @@
-<p>new-user works!</p>
+<div class="modal-header bg-primary text-light">
+  <h4 class="modal-title">Create a new user</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form role="form" [formGroup]="userForm" (submit)="saveUser()">
+    <div class="form-group">
+      <label for="firstName">Firstname: </label>
+      <input type="text" class="form-control" id="firstName" name="firstName" formControlName="firstName"/>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Lastname: </label>
+      <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName"/>
+    </div>
+    <div class="form-group">
+      <label for="email">Email: </label>
+      <input type="text" class="form-control" id="email" name="email" formControlName="email"/>
+    </div>
+    <div class="form-group">
+      <label for="userName">Username: </label>
+      <input type="text" class="form-control" id="userName" name="userName" formControlName="userName"/>
+    </div>
+    <div class="form-group">
+      <label for="password">Password: </label>
+      <input type="text" class="form-control" id="password" name="password" formControlName="password"/>
+    </div>
+    <button [disabled]="!formValid" type="submit" class="btn btn-primary">Save</button>
+  </form>
+  <ul *ngIf="errorMessage"><li *ngFor="let msg of errorMessage">{{msg}}</li></ul>
+</div>
