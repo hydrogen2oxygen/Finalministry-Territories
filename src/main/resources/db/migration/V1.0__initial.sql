@@ -1,23 +1,6 @@
 ;
 CREATE USER IF NOT EXISTS "SA" SALT '636f66ada9c9a97b' HASH '82b48928efd79a35cfa807d1f248ae34d76951766b5fd458a345ec1fbba4378d' ADMIN;
-CREATE CACHED TABLE "PUBLIC"."flyway_schema_history"(
-    "installed_rank" INT NOT NULL,
-    "version" VARCHAR(50),
-    "description" VARCHAR(200) NOT NULL,
-    "type" VARCHAR(20) NOT NULL,
-    "script" VARCHAR(1000) NOT NULL,
-    "checksum" INT,
-    "installed_by" VARCHAR(100) NOT NULL,
-    "installed_on" TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    "execution_time" INT NOT NULL,
-    "success" BOOLEAN NOT NULL
-);
-ALTER TABLE "PUBLIC"."flyway_schema_history" ADD CONSTRAINT "PUBLIC"."flyway_schema_history_pk" PRIMARY KEY("installed_rank");
--- 2 +/- SELECT COUNT(*) FROM PUBLIC.flyway_schema_history;
-INSERT INTO "PUBLIC"."flyway_schema_history" VALUES
-(-1, NULL, '<< Flyway Schema History table created >>', 'TABLE', '', NULL, 'SA', TIMESTAMP '2020-03-16 11:04:56.301296', 0, TRUE),
-(1, '1', '<< Flyway Baseline >>', 'BASELINE', '<< Flyway Baseline >>', NULL, 'SA', TIMESTAMP '2020-03-16 11:04:56.340294', 0, TRUE);
-CREATE INDEX "PUBLIC"."flyway_schema_history_s_idx" ON "PUBLIC"."flyway_schema_history"("success");
+
 CREATE CACHED TABLE "PUBLIC"."MINISTER"(
     "ID" BINARY NOT NULL,
     "NAME" VARCHAR(255)
