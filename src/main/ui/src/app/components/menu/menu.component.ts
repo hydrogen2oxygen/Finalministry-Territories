@@ -66,6 +66,7 @@ export class MenuComponent implements OnInit {
   }
 
   isAdmin():boolean {
+
     return this.sessionService.hasRole("ADMIN");
   }
 

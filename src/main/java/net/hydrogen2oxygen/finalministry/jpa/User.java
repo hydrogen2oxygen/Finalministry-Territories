@@ -2,7 +2,6 @@ package net.hydrogen2oxygen.finalministry.jpa;
 
 import javax.persistence.*;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.UUID;
 
 @Entity

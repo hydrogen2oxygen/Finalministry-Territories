@@ -1,7 +1,7 @@
 <h3>Settings</h3>
 
 <h4>Change Password</h4>
-<form role="form" [formGroup]="settingsForm" (submit)="saveNewPassword()">
+<form role="form" [formGroup]="settingsPasswordForm" (submit)="savePassword()">
   <div class="form-group">
     <label for="password"><span *ngIf="passwordStrength" class="Password{{passwordStrength.toString()}}">{{passwordStrength.toString()}}</span> Password: </label>
     <input type="password" class="form-control" id="password" name="password" formControlName="password" (ngModelChange)="checkPasswordStrength()"/>

@@ -1,0 +1,15 @@
+<div class="modal-header bg-primary text-light">
+  <h4 class="modal-title">Edit {{user.userName}} ({{user.firstName}} {{user.lastName}})</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p><b>Roles:</b> {{user.roles}}</p>
+  <select (change)="setSelectedRole($event)">
+    <option *ngFor="let role of roles">{{role}}</option>
+  </select>
+  <button class="btn btn-primary btn-sm" style="margin-left: 0.3rem" (click)="assignRole()">Assign role</button>
+  <button *ngIf="hasRoleAssigned()" class="btn btn-warning btn-sm" style="margin-left: 0.3rem" (click)="removeRole()">Remove role</button>
+  <button *ngIf="!hasRoleAssigned()" class="btn btn-warning btn-sm disabled" style="margin-left: 0.3rem">Remove role</button>
+</div>

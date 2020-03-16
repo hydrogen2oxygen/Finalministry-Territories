@@ -36,9 +36,7 @@ export class SessionService {
 
   authenticate(username, password, callback) {
 
-    let authorization = 'Basic ' + btoa(username + ':' + password);
-
-    this.sessionStorage.set("authorization",authorization);
+    let authorization = this.saveAuthorizationInSession(username, password);
 
     const headers = new HttpHeaders( {
       authorization: authorization
@@ -73,6 +71,15 @@ export class SessionService {
     });
   }
 
+  saveAuthorizationInSession(username, password) {
+
+    let authorization = 'Basic ' + btoa(username + ':' + password);
+
+    this.sessionStorage.set("authorization", authorization);
+
+    return authorization;
+  }
+
   getAuthorizationHeaders():HttpHeaders {
 
     let authorization = this.sessionStorage.get("authorization");
@@ -85,6 +92,9 @@ export class SessionService {
   }
 
   hasRole(roleName:string):boolean {
+
+    // No need to ask farther if you are not authenticated
+    if (!this.isAuthenticated()) return false;
 
     if (this.roles == null) {
       this.roles = this.sessionStorage.get("roles");

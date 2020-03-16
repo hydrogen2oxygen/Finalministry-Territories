@@ -1,12 +1,12 @@
 package net.hydrogen2oxygen.finalministry.rest;
 
-import net.hydrogen2oxygen.finalministry.dto.UserDto;
 import net.hydrogen2oxygen.finalministry.jpa.User;
 import net.hydrogen2oxygen.finalministry.jpa.repositories.UserRepository;
 import net.hydrogen2oxygen.finalministry.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -36,11 +36,9 @@ public class UserRest {
 
     @GetMapping("/current")
     @ResponseBody
-    public ResponseEntity<UserDto> getCurrentUser() {
+    public ResponseEntity<User> getCurrentUser() {
         User user = sessionService.getUser();
-        UserDto userDto = new UserDto();
-        userDto.setRoles(user.getRoles());
-        return new ResponseEntity(userDto, HttpStatus.OK);
+        return new ResponseEntity(user, HttpStatus.OK);
     }
 
     @GetMapping
@@ -53,5 +51,29 @@ public class UserRest {
         } else {
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
+    }
+
+    @PutMapping("/{userName}/password/{password}")
+    @ResponseBody
+    public ResponseEntity changeUserPassword(@PathVariable String userName, @PathVariable String password) {
+
+        User user = userRepository.findByUserName(userName);
+        User currentUser = sessionService.getUser();
+
+        if (currentUser.getUserName().equals(user.getUserName()) || user.getRoles().contains("ADMIN")) {
+            user.setPassword(new BCryptPasswordEncoder().encode(password));
+            userRepository.save(user);
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping
+    @ResponseBody
+    public ResponseEntity changeUserDetails(@RequestBody User user) {
+
+        User persistedUser = userRepository.save(user);
+
+        return new ResponseEntity(persistedUser, HttpStatus.OK);
     }
 }
