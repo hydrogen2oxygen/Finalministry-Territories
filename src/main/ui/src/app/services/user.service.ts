@@ -21,6 +21,10 @@ export class UserService {
     return this.http.put<void>(BaseUrlUtility.getBaseUrl() + "/user/" + encodeURIComponent(userName) + "/password/" + encodeURIComponent(password), null, {headers: this.sessionService.getAuthorizationHeaders()});
   }
 
+  saveUserEmail(userName:string, email:string):Observable<void> {
+    return this.http.put<void>(BaseUrlUtility.getBaseUrl() + "/user/" + encodeURIComponent(userName) + "/email/" + encodeURIComponent(email), null, {headers: this.sessionService.getAuthorizationHeaders()});
+  }
+
   putUser(user: User):Observable<void> {
     return this.http.put<void>(BaseUrlUtility.getBaseUrl() + "/user/", user, {headers: this.sessionService.getAuthorizationHeaders()});
   }

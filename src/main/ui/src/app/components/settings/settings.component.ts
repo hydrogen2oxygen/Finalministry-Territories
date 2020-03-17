@@ -4,6 +4,7 @@ import {PasswordCheckService, PasswordCheckStrength} from "../../services/passwo
 import {UserService} from "../../services/user.service";
 import {SessionService} from "../../services/session.service";
 import {ToastrService} from "ngx-toastr";
+import {User} from "../../domain/User";
 
 @Component({
   selector: 'app-settings',
@@ -12,9 +13,11 @@ import {ToastrService} from "ngx-toastr";
 })
 export class SettingsComponent implements OnInit {
   settingsPasswordForm: FormGroup;
+  settingsEmailForm: FormGroup;
   error: string;
   passwordStrength:PasswordCheckStrength;
   bothPasswordsEqual:boolean = false;
+
 
   constructor(
     private formBuilder:FormBuilder,
@@ -25,9 +28,17 @@ export class SettingsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    let user:User = this.sessionService.getUser();
+
     this.settingsPasswordForm = this.formBuilder.group({
       password: '',
       password2: ''
+    });
+
+    this.settingsPasswordForm.reset();
+
+    this.settingsEmailForm = this.formBuilder.group({
+      email: user.email
     });
   }
 
@@ -58,6 +69,16 @@ export class SettingsComponent implements OnInit {
       this.sessionService.saveAuthorizationInSession(this.sessionService.getUser().name, this.settingsPasswordForm.getRawValue().password);
       this.settingsPasswordForm.reset();
       this.toastr.info('Password saved!','Settings info');
+    });
+  }
+
+  saveEmail() {
+
+    console.log('Save email ...');
+    this.userService.saveUserEmail(this.sessionService.getUser().name, this.settingsEmailForm.getRawValue().email).subscribe(() => {
+      console.log("OK email saved");
+      this.settingsEmailForm.reset();
+      this.toastr.info('Email saved!','Settings info');
     });
   }
 }

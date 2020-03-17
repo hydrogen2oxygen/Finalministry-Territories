@@ -75,6 +75,21 @@ public class UserRest {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PutMapping("/{userName}/email/{email}")
+    @ResponseBody
+    public ResponseEntity changeUserEmail(@PathVariable String userName, @PathVariable String email) {
+
+        User user = userRepository.findByUserName(userName);
+        User currentUser = sessionService.getUser();
+
+        if (currentUser.getUserName().equals(user.getUserName()) || user.getRoles().contains("ADMIN")) {
+            user.setEmail(email);
+            userRepository.save(user);
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @PutMapping
     @ResponseBody
     public ResponseEntity changeUserDetails(@RequestBody User user) {
